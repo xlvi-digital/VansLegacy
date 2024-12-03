@@ -6,6 +6,8 @@
     <!-- My Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
+    <!-- sweatalert -->
+    <link rel="stylesheet" href="assets/sweetalert2/sweetalert2.min.css" />
     <!-- Box Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
 
@@ -16,9 +18,9 @@
   </head>
   <body>
     <div class="container">
-      <div class="navbar">
+      <div class="navbar" x-data>
         <div class="logo">
-          <img src="images/logo.png" width="125px" />
+          <img src="images/logo (1).png" width="125px" />
         </div>
         <nav>
           <ul id="menuItems">
@@ -29,51 +31,45 @@
             <li><a href="">Account</a></li>
           </ul>
         </nav>
-        <img src="images/cart.png" width="30px" height="30px" alt="cart" />
+        <div class="cart-icon" x-data="cartPage">
+          <a href="cart.html">
+            <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
+
+            <span class="cart-badge" x-text="cart.length"></span>
+          </a>
+        </div>
         <img src="images/menu.png" class="menu-icon" onclick="menuToggle()" />
       </div>
     </div>
 
     <!-- single Product -->
-    <div class="small-container single-product">
-      <div class="row">
-        <div class="col-2">
-          <img src="images/gallery-1.jpg" width="100%" id="product-img" />
+    <div class="small-container single-product" x-data="product" x-init="init()">
+      <template x-if="product">
+        <div class="row">
+          <div class="col-2">
+            <img :src="product.imgs[0]" width="100%" id="product-img" />
 
-          <div class="small-img-row">
-            <div class="small-img-col">
-              <img src="images/gallery-1.jpg" width="100%" class="small-img" />
-            </div>
-            <div class="small-img-col">
-              <img src="images/gallery-2.jpg" width="100%" class="small-img" />
-            </div>
-            <div class="small-img-col">
-              <img src="images/gallery-3.jpg" width="100%" class="small-img" />
-            </div>
-            <div class="small-img-col">
-              <img src="images/gallery-4.jpg" width="100%" class="small-img" />
+            <div class="small-img-row">
+              <template x-for="img in product.imgs" :key="img">
+                <div class="small-img-col">
+                  <img :src="img" width="100%" class="small-img" />
+                </div>
+              </template>
             </div>
           </div>
+          <div class="col-2">
+            <p>Home / Vans Shoes</p>
+            <h1 x-text="product.name"></h1>
+            <h4 x-text="rupiah(product.price)"></h4>
+            <p>Size: <span x-text="product.size"></span></p>
+            <input type="number" value="1" />
+            <a href="#" @click.prevent="addToCart(product)" class="btn">Add to Cart</a>
+            <h3>Product Detail <i class="bx bx-right-indent"></i></h3>
+            <br />
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis architecto neque nostrum quo minima beatae.</p>
+          </div>
         </div>
-        <div class="col-2">
-          <p>Home / T-Shirt</p>
-          <h1>Red Printd T-Shirt by HRX</h1>
-          <h4>$50.00</h4>
-          <select name="" id="">
-            <option value="">Select Size</option>
-            <option value="">XXL</option>
-            <option value="">XL</option>
-            <option value="">Large</option>
-            <option value="">Medium</option>
-            <option value="">Small</option>
-          </select>
-          <input type="number" value="1" />
-          <a href="cart.html" class="btn">Add to Cart</a>
-          <h3>Product Detail <i class="bx bx-right-indent"></i></h3>
-          <br />
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus ad quae cumque accusantium nam esse laudantium. Perspiciatis, eum! Nostrum id odio nemo praesentium earum distinctio possimus ut tenetur hic.</p>
-        </div>
-      </div>
+      </template>
     </div>
 
     <!-- title -->
@@ -86,51 +82,20 @@
 
     <!-- Featured Products -->
     <div class="small-container">
-      <div class="row">
-        <div class="col-4">
-          <img src="images/product-1.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
+      <div class="row" x-data="product">
+        <template x-for="(item, index) in items.slice(0, 4)" x-key="index">
+          <div class="col-4">
+            <img :src="item.imgs[0]" alt="Product Image" class="product-img" />
+            <h4 x-text="item.name"></h4>
+            <div class="rating">
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bx-star"></i>
+            </div>
+            <p x-text="rupiah(item.price)"></p>
           </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-2.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-3.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-4.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
+        </template>
       </div>
     </div>
 
@@ -166,6 +131,13 @@
       </div>
     </footer>
 
+    <script src="script.js"></script>
+    <script src="assets/jquery.js"></script>
+    <script src="assets/app.js"></script>
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="assets/sweetalert2/sweetalert2.min.js"></script>
+
     <script>
       // js for Toggle menu
       var menuItems = document.getElementById("menuItems");
@@ -183,22 +155,16 @@
 
     <script>
       // js for product gallery
+      document.addEventListener("DOMContentLoaded", function () {
+        var productImg = document.getElementById("product-img");
+        var smallImg = document.getElementsByClassName("small-img");
 
-      var productImg = document.getElementById("product-img");
-      var smallImg = document.getElementsByClassName("small-img");
-
-      smallImg[0].onclick = function () {
-        productImg.src = smallImg[0].src;
-      };
-      smallImg[1].onclick = function () {
-        productImg.src = smallImg[1].src;
-      };
-      smallImg[2].onclick = function () {
-        productImg.src = smallImg[2].src;
-      };
-      smallImg[3].onclick = function () {
-        productImg.src = smallImg[3].src;
-      };
+        for (let i = 0; i < smallImg.length; i++) {
+          smallImg[i].onclick = function () {
+            productImg.src = smallImg[i].src;
+          };
+        }
+      });
     </script>
   </body>
 </html>

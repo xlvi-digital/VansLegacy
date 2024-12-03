@@ -18,7 +18,7 @@
     <div class="container">
       <div class="navbar">
         <div class="logo">
-          <img src="images/logo.png" width="125px" />
+          <img src="images/logo (1).png" width="125px" />
         </div>
         <nav>
           <ul id="menuItems">
@@ -29,10 +29,11 @@
             <li><a href="">Account</a></li>
           </ul>
         </nav>
-        <img src="images/cart.png" width="30px" height="30px" alt="cart" />
+        <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
         <img src="images/menu.png" class="menu-icon" onclick="menuToggle()" />
       </div>
     </div>
+
     <!-- Featured Products -->
     <div class="small-container pt-5">
       <div class="row row-2">
@@ -45,143 +46,25 @@
           <option value="">Short By sale</option>
         </select>
       </div>
-      <div class="row">
-        <div class="col-4">
-          <a href="single-product.html">
-            <img src="images/product-1.jpg" alt="Product 1" />
-            <h4>Red Printed Tshirt</h4>
+
+      <div class="row" x-data="product">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="col-4">
+            <a :href="`single-product.html?id=${item.id}`">
+              <img :src="item.imgs[0]" :alt="item.name" class="product-img" />
+            </a>
+            <!-- <img :src="item.imgs[0]" :alt="item.name" /> -->
+            <h4 x-text="item.name"></h4>
             <div class="rating">
               <i class="bx bxs-star"></i>
               <i class="bx bxs-star"></i>
               <i class="bx bxs-star"></i>
               <i class="bx bx-star"></i>
             </div>
-            <p>$50.00</p>
-          </a>
-        </div>
-        <div class="col-4">
-          <img src="images/product-2.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
+            <p x-text="rupiah(item.price)"></p>
           </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-3.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-4.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-5.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-6.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-7.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-8.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-9.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-10.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-11.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-12.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
+        </template>
       </div>
-
       <div class="page-btn">
         <span>1</span>
         <span>2</span>
@@ -222,6 +105,11 @@
       </div>
     </footer>
 
+    <script src="script.js"></script>
+    <script src="assets/jquery.js"></script>
+    <script src="assets/app.js"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
       var menuItems = document.getElementById("menuItems");
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +18,7 @@
     <div class="container">
       <div class="navbar">
         <div class="logo">
-          <img src="images/logo.png" width="125px" />
+          <img src="images/logo (1).png" width="125px" />
         </div>
         <nav>
           <ul id="menuItems">
@@ -29,87 +29,79 @@
             <li><a href="">Account</a></li>
           </ul>
         </nav>
-        <img src="images/cart.png" width="30px" height="30px" alt="cart" />
+        <div class="cart-icon" x-data="cartPage">
+          <a href="cart.html">
+            <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
+            <span class="cart-badge" x-text="cart.length"></span>
+          </a>
+        </div>
         <img src="images/menu.png" class="menu-icon" onclick="menuToggle()" />
       </div>
     </div>
-    <!-- Featured Products -->
-    <div class="small-container cart-items">
-      <table>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Sub Total</th>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="images/buy-1.jpg" />
-              <div class="">
-                <p>Red Printed T-Shirt</p>
-                <small>Price: $50.00</small>
-                <br />
-                <a href="">Remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" /></td>
-          <td>$50.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="images/buy-2.jpg" />
-              <div class="">
-                <p>Red Printed T-Shirt</p>
-                <small>Price: $50.00</small>
-                <br />
-                <a href="">Remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" /></td>
-          <td>$50.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="images/buy-3.jpg" />
-              <div class="">
-                <p>Red Printed T-Shirt</p>
-                <small>Price: $50.00</small>
-                <br />
-                <a href="">Remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" /></td>
-          <td>$50.00</td>
-        </tr>
-      </table>
 
-      <div class="total-price">
-        <table>
-          <tr>
-            <td>Sub Total</td>
-            <td>$200.00</td>
-          </tr>
-          <tr>
-            <td>Tax</td>
-            <td>$30.00</td>
-          </tr>
-          <tr>
-            <td>Total</td>
-            <td>$230.00</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <a href="" class="btn"><i class="bx bx-cart"></i>Check Out</a>
-            </td>
-          </tr>
-        </table>
-      </div>
+    <!-- Featured Products -->
+    <div class="small-container cart-items" x-data="cartPage">
+      <template x-if="cart.length > 0">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="item in cart" :key="item.id">
+                <tr>
+                  <td>
+                    <div class="cart-info">
+                      <img :src="item.imgs[0]" alt="" />
+                      <div>
+                        <p x-text="item.name"></p>
+                        <small>Price: <span x-text="rupiah(item.price)"></span></small>
+                        <br />
+                        <a href="#" @click.prevent="removeFromCart(item.id)">Remove</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number" min="1" :value="item.quantity" @input="item.quantity = parseInt($event.target.value); if(item.quantity < 1) removeFromCart(item.id)" />
+                  </td>
+                  <td><span x-text="rupiah(item.price * item.quantity)"></span></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+
+          <div class="total-price">
+            <table>
+              <tr>
+                <td>Sub Total</td>
+                <td><span x-text="rupiah(calculateSubTotal())"></span></td>
+              </tr>
+              <tr>
+                <td>Tax</td>
+                <td><span x-text="rupiah(calculateTax())"></span></td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td><span x-text="rupiah(calculateTotal())"></span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="#" class="btn"><i class="bx bx-cart"></i>Check Out</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="cart.length === 0">
+        <p>Keranjang kosong. Tambahkan produk untuk melanjutkan.</p>
+      </template>
     </div>
 
     <!-- footer -->
@@ -143,6 +135,12 @@
         <p class="copyright">Copyright 2024 - Xlvi.io</p>
       </div>
     </footer>
+
+    <script src="script.js"></script>
+    <script src="assets/jquery.js"></script>
+    <script src="assets/app.js"></script>
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <script>
       var menuItems = document.getElementById("menuItems");

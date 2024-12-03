@@ -21,7 +21,7 @@ body {
 .navbar {
   display: flex;
   align-items: center;
-  padding: 1.7rem 7%;
+  padding: 1rem 7%;
   position: fixed;
   top: 0;
   left: 0;
@@ -58,6 +58,28 @@ a {
 
 p {
   color: var(--text-color);
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-icon .cart-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  background-color: red;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.cart-animate {
+  transform: scale(1.5);
+  opacity: 0.8;
 }
 
 .container {

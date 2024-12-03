@@ -18,7 +18,7 @@
     <div class="container">
       <div class="navbar">
         <div class="logo">
-          <img src="images/logo.png" width="125px" />
+          <img src="images/logo (1).png" width="125px" />
         </div>
         <nav>
           <ul id="menuItems">
@@ -29,7 +29,7 @@
             <li><a href="">Account</a></li>
           </ul>
         </nav>
-        <img src="images/cart.png" width="30px" height="30px" alt="cart" />
+        <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
         <img src="images/menu.png" class="menu-icon" onclick="menuToggle()" />
       </div>
     </div>
@@ -41,14 +41,11 @@
               Give Your <br />
               A New Style!
             </h1>
-            <p>
-              Succes isn'n always about greatness. It's about consistency. Consitent <br />
-              hard work gains success. Greatness will come.
-            </p>
+            <p>Hidupkan kembali nilai dan cerita di balik setiap sepatu Vans yang telah melewati perjalanan.</p>
             <a href="" class="btn">Explore Now &#8594;</a>
           </div>
           <div class="col-2">
-            <img src="images/image1.png" alt="home" />
+            <img src="images/logo (2).png" alt="home" />
           </div>
         </div>
       </div>
@@ -59,13 +56,13 @@
       <div class="small-container">
         <div class="row">
           <div class="col-3">
-            <img src="images/category-1.jpg" />
+            <img src="images/category (2).jpg " />
           </div>
           <div class="col-3">
-            <img src="images/category-2.jpg" />
+            <img src="images/category (1).jpg " />
           </div>
           <div class="col-3">
-            <img src="images/category-3.jpg" />
+            <img src="images/category (3).jpg" />
           </div>
         </div>
       </div>
@@ -74,143 +71,42 @@
     <!-- Featured Products -->
     <div class="small-container">
       <h2 class="title">Featured Products</h2>
-      <div class="row">
-        <div class="col-4">
-          <img src="images/product-1.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
+      <div class="row" x-data="product">
+        <template x-for="(item, index) in items.slice(0, 4)" x-key="index">
+          <div class="col-4">
+            <a :href="`single-product.html?id=${item.id}`">
+              <img :src="item.imgs[0]" alt="Product Image" class="product-img" />
+            </a>
+            <h4 x-text="item.name"></h4>
+            <div class="rating">
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bx-star"></i>
+            </div>
+            <p x-text="rupiah(item.price)"></p>
           </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-2.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-3.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-4.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
+        </template>
       </div>
 
       <h2 class="title">latest Products</h2>
-      <div class="row">
-        <div class="col-4">
-          <img src="images/product-5.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
+      <div class="row" x-data="product">
+        <template x-for="(item, index) in items.reverse()" x-key="index">
+          <div class="col-4">
+            <a :href="`single-product.html?id=${item.id}`">
+              <img :src="item.imgs[0]" alt="Product Image" class="product-img" />
+            </a>
+
+            <h4 x-text="item.name"></h4>
+            <div class="rating">
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bx-star"></i>
+            </div>
+            <p x-text="rupiah(item.price)"></p>
           </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-6.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-7.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-8.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-9.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-10.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-11.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product-12.jpg" alt="Product 1" />
-          <h4>Red Printed Tshirt</h4>
-          <div class="rating">
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star"></i>
-            <i class="bx bxs-star-half"></i>
-            <i class="bx bx-star"></i>
-          </div>
-          <p>$50.00</p>
-        </div>
+        </template>
       </div>
     </div>
 
@@ -222,8 +118,8 @@
             <img src="images/exclusive.png" alt="exclusive" class="offer0img" />
           </div>
           <div class="col-2">
-            <p>Exclusively Available on RedStroe</p>
-            <h1>Smart Band 4</h1>
+            <p>Exclusively Available on VansLegacy</p>
+            <h1>Vans SK8 Hijau</h1>
             <small>The Mi Smart Band 4 features a 39.5% larger (than Mi Band 3) AMOLED color full-touch display with adjustable brightness, so everthing is clear as can be.</small>
             <a href="#" class="btn">Buy Now &#8594;</a>
           </div>
@@ -330,6 +226,11 @@
       </div>
     </footer>
 
+    <script src="script.js"></script>
+    <script src="assets/jquery.js"></script>
+    <script src="assets/app.js"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
       var menuItems = document.getElementById("menuItems");
 
