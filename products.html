@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="images/logo (1).png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- My Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
@@ -12,7 +13,7 @@
     <!-- My Css -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="responsive.css" />
-    <title>E-Commerce |</title>
+    <title>VansLegacy | All Product</title>
   </head>
   <body>
     <div class="container">
@@ -29,7 +30,13 @@
             <li><a href="">Account</a></li>
           </ul>
         </nav>
-        <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
+        <div class="cart-icon" x-data="cartPage">
+          <a href="cart.html">
+            <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
+
+            <span class="cart-badge" x-text="cartCount"></span>
+          </a>
+        </div>
         <img src="images/menu.png" class="menu-icon" onclick="menuToggle()" />
       </div>
     </div>
@@ -55,12 +62,7 @@
             </a>
             <!-- <img :src="item.imgs[0]" :alt="item.name" /> -->
             <h4 x-text="item.name"></h4>
-            <div class="rating">
-              <i class="bx bxs-star"></i>
-              <i class="bx bxs-star"></i>
-              <i class="bx bxs-star"></i>
-              <i class="bx bx-star"></i>
-            </div>
+            <p>Size : <span x-text="item.size"></span></p>
             <p x-text="rupiah(item.price)"></p>
           </div>
         </template>

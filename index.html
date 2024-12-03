@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="images/logo (1).png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- My Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
@@ -12,13 +13,13 @@
     <!-- My Css -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="responsive.css" />
-    <title>E-Commerce |</title>
+    <title>VansLegacy | Home</title>
   </head>
   <body>
     <div class="container">
       <div class="navbar">
         <div class="logo">
-          <img src="images/logo (1).png" width="125px" />
+          <img src="images/logo.png" width="125px" />
         </div>
         <nav>
           <ul id="menuItems">
@@ -29,7 +30,13 @@
             <li><a href="">Account</a></li>
           </ul>
         </nav>
-        <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
+        <div class="cart-icon" x-data="cartPage">
+          <a href="cart.html">
+            <img src="images/cart.png" width="30px" height="30px" alt="cart" class="cart" />
+
+            <span class="cart-badge" x-text="cartCount"></span>
+          </a>
+        </div>
         <img src="images/menu.png" class="menu-icon" onclick="menuToggle()" />
       </div>
     </div>
@@ -56,13 +63,13 @@
       <div class="small-container">
         <div class="row">
           <div class="col-3">
-            <img src="images/category (2).jpg " />
+            <img src="images/category (1).jpg " alt="category" />
           </div>
           <div class="col-3">
-            <img src="images/category (1).jpg " />
+            <img src="images/category (2).jpg " alt="category" />
           </div>
           <div class="col-3">
-            <img src="images/category (3).jpg" />
+            <img src="images/category (3).jpg" alt="category" />
           </div>
         </div>
       </div>
@@ -78,12 +85,7 @@
               <img :src="item.imgs[0]" alt="Product Image" class="product-img" />
             </a>
             <h4 x-text="item.name"></h4>
-            <div class="rating">
-              <i class="bx bxs-star"></i>
-              <i class="bx bxs-star"></i>
-              <i class="bx bxs-star"></i>
-              <i class="bx bx-star"></i>
-            </div>
+            <p>Size : <span x-text="item.size"></span></p>
             <p x-text="rupiah(item.price)"></p>
           </div>
         </template>
@@ -98,12 +100,7 @@
             </a>
 
             <h4 x-text="item.name"></h4>
-            <div class="rating">
-              <i class="bx bxs-star"></i>
-              <i class="bx bxs-star"></i>
-              <i class="bx bxs-star"></i>
-              <i class="bx bx-star"></i>
-            </div>
+            <p>Size : <span x-text="item.size"></span></p>
             <p x-text="rupiah(item.price)"></p>
           </div>
         </template>
@@ -171,7 +168,7 @@
       </div>
     </section>
 
-    <!-- Brands -->
+    <!-- Brands
     <section id="brands" class="brands">
       <div class="small-container">
         <div class="row">
@@ -192,7 +189,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- footer -->
     <footer class="footer">

@@ -64,6 +64,9 @@ document.addEventListener("alpine:init", () => {
     init() {
       const productId = getProductId();
       this.product = this.items.find((item) => item.id == productId);
+
+      this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log("Cart synchronized:", this.cart);
     },
 
     get cartCount() {
@@ -99,7 +102,7 @@ document.addEventListener("alpine:init", () => {
       });
       Toast.fire({
         icon: "success",
-        title: "Dimasukan Ke Keranjang",
+        title: `${product.name} Dimasukan Ke Keranjang`,
         customClass: {
           icon: "swal2-icon-center",
         },
@@ -110,12 +113,76 @@ document.addEventListener("alpine:init", () => {
   Alpine.data("cartPage", () => ({
     cart: JSON.parse(localStorage.getItem("cart")) || [],
 
+    init() {
+      // Sinkronisasi cart dengan localStorage
+      this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log("Cart synchronized:", this.cart);
+    },
+
+    get cartCount() {
+      return this.cart.reduce((total, item) => total + item.quantity, 0);
+    },
+    addToCart(product) {
+      const existingProduct = this.cart.find((item) => item.id === product.id);
+
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        this.cart.push({ ...product, quantity: 1 });
+      }
+
+      // Trigger reactivity update untuk Alpine.js
+      this.cart = [...this.cart];
+
+      // Simpan perubahan ke localStorage
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+
+      // SweetAlert untuk notifikasi
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "center",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: `${product.name} Telah Dicancel`,
+        customClass: {
+          icon: "swal2-icon-center",
+        },
+      });
+    },
+
     removeFromCart(productId) {
       // Filter untuk menghapus item berdasarkan ID
       this.cart = this.cart.filter((item) => item.id !== productId);
 
       // Update localStorage setelah perubahan
       localStorage.setItem("cart", JSON.stringify(this.cart));
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "center",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: `Product Telah Dicancel`,
+        customClass: {
+          icon: "swal2-icon-center",
+        },
+      });
     },
 
     calculateSubTotal() {
@@ -126,6 +193,32 @@ document.addEventListener("alpine:init", () => {
     },
     calculateTotal() {
       return this.calculateSubTotal() + this.calculateTax();
+    },
+    get cartCount() {
+      return this.cart.reduce((total, item) => total + item.quantity, 0);
+    },
+
+    checkout() {
+      if (this.cart.length === 0) {
+        alert("Keranjang belanja Anda kosong!");
+        return;
+      }
+
+      let message = "Halo, saya ingin memesan:\n\n";
+
+      this.cart.forEach((item, index) => {
+        message += `${index + 1}. ${item.name} - Qty: ${item.quantity}\n`;
+      });
+
+      const total = this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      message += `\nTotal: Rp${total.toLocaleString("id-ID")}\n\n`;
+      message += "Terima kasih!";
+
+      const encodedMessage = encodeURIComponent(message);
+      const phoneNumber = "6287721561947"; // Ganti dengan nomor WhatsApp Anda
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+      window.open(whatsappUrl, "_blank");
     },
   }));
 
