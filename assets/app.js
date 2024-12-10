@@ -112,7 +112,7 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("cartPage", () => ({
     cart: JSON.parse(localStorage.getItem("cart")) || [],
-
+    quantity: JSON.parse(localStorage.getItem("quantity")) || 0,
     init() {
       // Sinkronisasi cart dengan localStorage
       this.cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -122,13 +122,13 @@ document.addEventListener("alpine:init", () => {
     get cartCount() {
       return this.cart.reduce((total, item) => total + item.quantity, 0);
     },
-    addToCart(product) {
+    addToCart(product, quantity = 1) {
       const existingProduct = this.cart.find((item) => item.id === product.id);
 
       if (existingProduct) {
         existingProduct.quantity++;
       } else {
-        this.cart.push({ ...product, quantity: 1 });
+        this.cart.push({ ...product, quantity: quantity });
       }
 
       // Trigger reactivity update untuk Alpine.js

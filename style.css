@@ -293,6 +293,10 @@ small {
 .footer h3 {
   color: #fff;
   margin-bottom: 20px;
+  text-align: center;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .footer-col-2,
